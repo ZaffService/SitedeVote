@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+          <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
+          <!-- responsive style -->
+    <link href="style/responsive.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+<body>
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <form class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+              <img src="images/logo.png" alt="">
+            </a>
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Acceuil</a>
+                </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </header>
+    <!-- end header section -->
+    <form class="header" id="MainForm">
+
+        </div>
+            <h1> Bienvenue à  <em class="bak">BAKELI</em> <em class="vote"> VOTE</em></h1>
+            <p>Connectez-vous</p>
+            <input class="inp" type="email" name="emailInp" id="emailInp" placeholder="Email"><br>
+            <input class="inp" type="password" name="passwordInp" id="passwordInp" placeholder="Mot de passe"><br>
+        <div class="probable">
+            <button type="submit"  class="button">Se Connecter</button><br>
+            <a class="m-oublie" href="oublie.html">Mot de pass oublié?</a>
+        </div>
+        <div class="fiable">
+          Vous n’avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a>    
+        </div>
+    </form>
+
+
+
+
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+      import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyChN97CiZ8SPkVLtpjQoxTgkEeC0fGfS2s",
+        authDomain: "project1-4d6be.firebaseapp.com",
+        projectId: "project1-4d6be",
+        storageBucket: "project1-4d6be.appspot.com",
+        messagingSenderId: "1044108154910",
+        appId: "1:1044108154910:web:5aab21447ddc68a46f760f"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase();
+      const auth = getAuth(app);
+      const dbref = ref(db);
+
+      let EmailInp = document.getElementById('emailInp');
+      let PasswordInp = document.getElementById('passwordInp');
+      let MainForm = document.getElementById('MainForm');
+
+      let SignInUser = evt => {
+        evt.preventDefault();
+
+        signInWithEmailAndPassword(auth, EmailInp.value, PasswordInp.value)
+        .then((credentials)=>{
+          console.log(credentials);
+          alert('Authentification réussie ! Vous êtes maintenant connecté à notre plateforme de vote en ligne.');
+        })
+        .catch((error)=>{
+          // alert(error.message);
+          alert("Email ou mot de passe incorrect!!!")
+          console.log(error.code);
+          console.log(error.message);
+        })
+      }
+
+      MainForm.addEventListener('submit', SignInUser);
+    </script>
+</body>
+</html>
